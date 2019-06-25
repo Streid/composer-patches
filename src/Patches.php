@@ -531,7 +531,7 @@ class Patches implements PluginInterface, EventSubscriberInterface {
         $comment .= ' This command may produce errors that can be safely ignored.';
         $this->io->write('<comment>' . $comment . '</comment>');
       }
-      $checked = $this->executeCommand('git -C %s apply --check -v %s %s', $install_path, $patch_level, $filename);
+      $checked = $this->executeCommand('git -C %s apply --check --whitespace=fix -v %s %s', $install_path, $patch_level, $filename);
       $output = $this->executor->getErrorOutput();
       if (substr($output, 0, 7) == 'Skipped') {
         // Git will indicate success but silently skip patches in some scenarios.
@@ -541,7 +541,7 @@ class Patches implements PluginInterface, EventSubscriberInterface {
       }
       if ($checked) {
         // Apply the first successful style.
-        $patched = $this->executeCommand('git -C %s apply %s %s', $install_path, $patch_level, $filename);
+        $patched = $this->executeCommand('git -C %s apply --whitespace=fix %s %s', $install_path, $patch_level, $filename);
         break;
       }
     }
