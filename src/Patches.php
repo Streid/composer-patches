@@ -534,7 +534,7 @@ class Patches implements PluginInterface, EventSubscriberInterface {
       $checked = $this->executeCommand('git -C %s apply --check --whitespace=fix -v %s %s', $install_path, $patch_level, $filename);
       $output = $this->executor->getErrorOutput();
       if (substr($output, 0, 7) == 'Skipped') {
-        // Git will indicate success but silently skip patches in some scenarios.
+        // Git will indicate success but silently skip patches in some scenarios
         //
         // @see https://github.com/cweagans/composer-patches/pull/165
         $checked = FALSE;
